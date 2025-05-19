@@ -1,0 +1,29 @@
+﻿@page
+@model EmployeeManagement.Pages.Departments.CreateModel
+@{
+    ViewData["Title"] = "Додати новий відділ";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Department.Name" class="control-label">Назва відділу</label>
+        <input asp-for="Department.Name" class="form-control" />
+        <span asp-validation-for="Department.Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Department.Description" class="control-label">Опис</label>
+        <textarea asp-for="Department.Description" class="form-control"></textarea>
+        <span asp-validation-for="Department.Description" class="text-danger"></span>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Зберегти</button>
+    <a asp-page="./Index" class="btn btn-secondary">Скасувати</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

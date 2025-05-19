@@ -1,0 +1,31 @@
+﻿@page
+@model EmployeeManagement.Pages.Employees.DeleteModel
+@{
+    ViewData["Title"] = "Видалити працівника";
+}
+<h2>@ViewData["Title"]</h2>
+
+<h4>Ви впевнені, що хочете видалити цього працівника?</h4>
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">ПІБ</dt>
+    <dd class="col-sm-10">@Model.PersonalInfo.FullName</dd>
+
+    <dt class="col-sm-2">Посада</dt>
+    <dd class="col-sm-10">@Model.PositionName</dd>
+
+    <dt class="col-sm-2">Відділ</dt>
+    <dd class="col-sm-10">@Model.DepartmentName</dd>
+</dl>
+
+<form method="post">
+    <input type="hidden" asp-for="Employee.Id" />
+    <input type="hidden" asp-for="PersonalInfo.Id" />
+
+    <button type="submit" class="btn btn-danger">Так, видалити</button>
+    <a asp-page="./Index" class="btn btn-secondary">Скасувати</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

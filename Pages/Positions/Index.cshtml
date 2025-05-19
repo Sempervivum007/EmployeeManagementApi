@@ -1,0 +1,29 @@
+﻿@page
+@model EmployeeManagement.Pages.Positions.IndexModel
+@{
+    ViewData["Title"] = "Список посад";
+}
+<h2>@ViewData["Title"]</h2>
+
+<a asp-page="Create" class="btn btn-outline-primary me-2">➕ Додати нову посаду</a>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Назва</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var position in Model.Positions)
+        {
+            <tr>
+                <td>@position.Name</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@position.Id" class="btn btn-sm btn-warning">✏️ Редагувати</a>
+                    <a asp-page="Delete" asp-route-id="@position.Id" class="btn btn-sm btn-danger">🗑️ Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

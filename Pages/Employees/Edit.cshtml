@@ -1,0 +1,59 @@
+﻿@page
+@model EmployeeManagement.Pages.Employees.EditModel
+@{
+    ViewData["Title"] = "Редагувати працівника";
+}
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Employee.Id" />
+    <input type="hidden" asp-for="PersonalInfo.Id" />
+
+    <fieldset>
+        <legend>Персональна інформація</legend>
+        <div>
+            <label>ПІБ</label>
+            <input asp-for="PersonalInfo.FullName" class="form-control" />
+        </div>
+        <div>
+            <label>Адреса</label>
+            <input asp-for="PersonalInfo.Address" class="form-control" />
+        </div>
+        <div>
+            <label>Телефон</label>
+            <input asp-for="PersonalInfo.Phone" class="form-control" />
+        </div>
+        <div>
+            <label>Дата народження</label>
+            <input asp-for="PersonalInfo.BirthDate" class="form-control" type="date" />
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Робоча інформація</legend>
+        <div>
+            <label>Відділ</label>
+            <select asp-for="Employee.DepartmentId" asp-items="Model.Departments" class="form-control"></select>
+        </div>
+        <div>
+            <label>Посада</label>
+            <select asp-for="Employee.PositionId" asp-items="Model.Positions" class="form-control"></select>
+        </div>
+        <div>
+            <label>Дата прийняття на роботу</label>
+            <input asp-for="Employee.HireDate" class="form-control" type="date" />
+        </div>
+        <div>
+            <label>Оклад</label>
+            <input asp-for="Employee.Salary" class="form-control" type="number" step="0.01" />
+        </div>
+    </fieldset>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Зберегти</button>
+    <a asp-page="./Index" class="btn btn-secondary">Скасувати</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

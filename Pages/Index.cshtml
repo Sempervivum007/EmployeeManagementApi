@@ -1,0 +1,59 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Інформація про компанію";
+}
+
+<h1>👋 Ласкаво просимо до системи обліку працівників</h1>
+<h2>@ViewData["Title"]</h2>
+
+<nav class="mb-3">
+    <a asp-page="/Employees/Index" class="btn btn-outline-primary me-2">👥 Персонал</a>
+    <a asp-page="/Departments/Index" class="btn btn-outline-secondary me-2">🏢 Відділи</a>
+    <a asp-page="/Positions/Index" class="btn btn-outline-secondary me-2">📌 Посади</a>
+    <a asp-page="/Reports/SalaryReport" class="btn btn-outline-success">📊 Звітність</a>
+</nav>
+
+@if (Model.Company != null)
+{
+    <h2>📋 @ViewData["Title"]</h2>
+    <p><strong>Назва:</strong> @Model.Company.Name</p>
+    <p><strong>Адреса:</strong> @Model.Company.Address</p>
+    <p><strong>Телефон:</strong> @Model.Company.Phone</p>
+    <p><strong>Email:</strong> @Model.Company.Email</p>
+    <p><strong>Website:</strong> @Model.Company.Website</p>
+    <p><strong>Опис:</strong> @Model.Company.Description</p>
+}
+else
+{
+    <p>Інформація про компанію ще не додана.</p>
+
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Company.Name">Назва</label>
+            <input asp-for="Company.Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Company.Address">Адреса</label>
+            <input asp-for="Company.Address" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Company.Phone">Телефон</label>
+            <input asp-for="Company.Phone" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Company.Email">Email</label>
+            <input asp-for="Company.Email" class="form-control" type="email" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Company.Website">Website</label>
+            <input asp-for="Company.Website" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Company.Description">Опис</label>
+            <input asp-for="Company.Description" class="form-control" />
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Зберегти</button>
+    </form>
+}

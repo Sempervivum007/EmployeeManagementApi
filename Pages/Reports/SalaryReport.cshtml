@@ -1,0 +1,72 @@
+﻿@page
+@model EmployeeManagement.Pages.Reports.SalaryReportModel
+@{
+    ViewData["Title"] = "Зарплатна звітність";
+}
+
+<h2>📊@ViewData["Title"]📊</h2>
+<h5><i>Фільтри</i></h5>
+<form method="get" class="form-inline mb-3">
+    <label>Відділ:</label>
+    <select asp-for="DepartmentId" asp-items="Model.Departments" class="form-control mr-2">
+        <option value="">Всі</option>
+    </select>
+
+    <label>Посада:</label>
+    <select asp-for="PositionId" asp-items="Model.Positions" class="form-control mr-2">
+        <option value="">Всі</option>
+    </select>
+
+    <div class="form-group mr-2">
+        <label>Дата найму з:</label>
+        <input type="date" asp-for="HireDateFrom" class="form-control" />
+    </div>
+
+    <div class="form-group mr-2">
+        <label>Дата найму по:</label>
+        <input type="date" asp-for="HireDateTo" class="form-control" />
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Сформувати звітність</button>
+
+</form>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ПІБ</th>
+            <th>Відділ</th>
+            <th>Посада</th>
+            <th>Оклад</th>
+            <th>Дата найму</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model.ViewEmployees)
+        {
+            <tr>
+                <td>@employee.PersonalInfo?.FullName</td>
+                <td>@employee.Department?.Name</td>
+                <td>@employee.Position?.Name</td>
+                <td>@employee.Salary.ToString("C")</td>
+                <td>@employee.HireDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3"><strong>Загальна сума:</strong></td>
+            <td><strong>@Model.TotalSalary.ToString("F2")</strong></td>
+        </tr>
+    </tfoot>
+</table>
+
+<form method="post">
+    <input type="hidden" name="DepartmentId" value="@Model.DepartmentId" />
+    <input type="hidden" name="PositionId" value="@Model.PositionId" />
+    <input type="hidden" name="HireDateFrom" value="@Model.HireDateFrom?.ToString("yyyy-MM-dd")" />
+    <input type="hidden" name="HireDateTo" value="@Model.HireDateTo?.ToString("yyyy-MM-dd")" />
+
+    <button type="submit" asp-page-handler="Export" class="btn btn-success">Вивантажити у TXT</button>
+</form>

@@ -1,0 +1,25 @@
+﻿@page
+@model EmployeeManagement.Pages.Positions.EditModel
+@{
+    ViewData["Title"] = "Редагувати посаду";
+}
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Position.Id" />
+
+    <div class="form-group">
+        <label asp-for="Position.Name" class="control-label"></label>
+        <input asp-for="Position.Name" class="form-control" />
+        <span asp-validation-for="Position.Name" class="text-danger"></span>
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Зберегти</button>
+    <a asp-page="./Index" class="btn btn-secondary">Скасувати</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

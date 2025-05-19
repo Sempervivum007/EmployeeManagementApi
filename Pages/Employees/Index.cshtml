@@ -1,0 +1,71 @@
+﻿@page
+@model EmployeeManagement.Pages.Employees.IndexModel
+@{
+    ViewData["Title"] = "Персонал";
+}
+<h2>@ViewData["Title"]</h2>
+
+<a asp-page="Create" class="btn btn-outline-primary me-2">➕ Додати нового працівника</a>
+<br />
+<br />
+<h6>Фільтри</h6>
+<form method="get" class="form-inline mb-3">
+    <div class="col-md-4">
+        <input type="text" name="SearchName" value="@Model.SearchName" class="form-control" placeholder="Пошук за ПІБ" />
+    </div>
+    
+    <label>Відділ:</label>
+    <select asp-for="DepartmentId" asp-items="Model.Departments" class="form-control mr-2">
+        <option value="">Всі</option>
+    </select>
+
+    <label>Посада:</label>
+    <select asp-for="PositionId" asp-items="Model.Positions" class="form-control mr-2">
+        <option value="">Всі</option>
+    </select>
+
+    <div class="form-group mr-2">
+        <label>Дата найму з:</label>
+        <input type="date" asp-for="HireDateFrom" class="form-control" />
+    </div>
+
+    <div class="form-group mr-2">
+        <label>Дата найму по:</label>
+        <input type="date" asp-for="HireDateTo" class="form-control" />
+    </div>
+
+    
+    <br />
+    <button type="submit" class="btn btn-primary">Фільтрувати</button>
+</form>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ПІБ</th>
+            <th>Відділ</th>
+            <th>Посада</th>
+            <th>Дата народження</th>
+            <th>Оклад</th>
+            <th>Дата найму</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model.ViewEmployees)
+        {
+            <tr>
+                <td>@employee.PersonalInfo?.FullName</td>
+                <td>@employee.Department?.Name</td>
+                <td>@employee.Position?.Name</td>
+                <td>@employee.PersonalInfo?.BirthDate.ToShortDateString()</td>
+                <td>@employee.Salary.ToString("C")</td>
+                <td>@employee.HireDate.ToShortDateString()</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@employee.Id" class="btn btn-sm btn-warning">✏️ Редагувати</a>
+                    <a asp-page="Delete" asp-route-id="@employee.Id" class="btn btn-sm btn-danger">🗑️ Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

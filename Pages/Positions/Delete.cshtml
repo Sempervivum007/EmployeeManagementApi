@@ -1,0 +1,21 @@
+﻿@page
+@model EmployeeManagement.Pages.Positions.DeleteModel
+@{
+    ViewData["Title"] = "Видалити посаду";
+}
+<h2>@ViewData["Title"]</h2>
+
+<h4>Ви впевнені, що хочете видалити цю посаду?</h4>
+<div>
+    <h5>@Model.Position.Name</h5>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Position.Id" />
+    <button type="submit" class="btn btn-danger">Так, видалити</button>
+    <a asp-page="./Index" class="btn btn-secondary">Скасувати</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
